@@ -1,30 +1,18 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
 
-require('dotenv').config();
+const userRouter = require('./routers/user');
+const port = process.env.SERVER_PORT;
+require('./db/db');
 
 const app = express();
-const port = 3002;
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-  extended: true,
-}));
-app.use(cors());
+app.use(express.json());
+app.use(userRouter);
 
-
-app.get('/', (request, response) => {
-  response.send({
-    message: 'Node.js and Express REST API'}
-  );
-});
-
-
-const server = app.listen(port, (error) => {
+app.listen(port, (error) => {
   if (error) {
-    return console.log(`Error: ${error}`);
+    return console.log(`\n[INFO] Error during starting the server: ${error}`);
   }
 
-  console.log(`[INFO] Server listening on port ${server.address().port}`);
+  console.log(`\n[INFO] Server is running on port ${port}`);
 });

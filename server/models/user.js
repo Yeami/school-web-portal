@@ -43,9 +43,7 @@ const userSchema = mongoose.Schema({
   }],
 });
 
-const User = mongoose.model('User', userSchema);
-
-userSchema.pre('save', async (next) => {
+userSchema.pre('save', async function (next) {
   // Hash the password before saving the user model
   const user = this;
   if (user.isModified('password')) {
@@ -54,7 +52,7 @@ userSchema.pre('save', async (next) => {
   next();
 });
 
-userSchema.methods.generateAuthToken = async () => {
+userSchema.methods.generateAuthToken = async function () {
   // Generate an auth token for the user
   const user = this;
   const token = jwt.sign({ _id: user._id }, process.env.JWT_KEY);
@@ -65,6 +63,7 @@ userSchema.methods.generateAuthToken = async () => {
 
 userSchema.statics.findByCredentials = async (email, password) => {
   // Search for a user by email and password.
+  // eslint-disable-next-line no-use-before-define
   const user = await User.findOne({ email });
   if (!user) {
     throw new Error({ error: 'Invalid login credentials' });
@@ -75,5 +74,7 @@ userSchema.statics.findByCredentials = async (email, password) => {
   }
   return user;
 };
+
+const User = mongoose.model('User', userSchema);
 
 module.exports = User;

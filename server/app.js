@@ -1,14 +1,12 @@
 const express = require('express');
 
-const userRouter = require('./routers/user');
-
 const port = process.env.SERVER_PORT;
-require('./db/db');
 
 const app = express();
 
-app.use(express.json());
-app.use(userRouter);
+require('./db/db');
+require('./middleware')(app);
+require('./routers')(app);
 
 app.listen(port, (error) => {
   if (error) {

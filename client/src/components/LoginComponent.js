@@ -1,45 +1,73 @@
-import React, {useState} from 'react'
-import {useDispatch} from "react-redux";
-import {fetchUser} from "../actions/userActions";
+import React from 'react'
+import {useDispatch} from 'react-redux';
+import {fetchUser} from '../actions/userActions';
+
+import {Form, Input, Button, Card} from 'antd';
+
+const pageWrapper = {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  width: '100%',
+  height: '100vh',
+};
 
 function LoginComponent() {
   const dispatch = useDispatch();
 
-  const onSubmit = (e) => {
-    e.preventDefault()
-    dispatch(fetchUser({email, password}))
-  }
+  const onFinish = (values) => {
+    console.log('Success:', values);
+    dispatch(fetchUser(values));
+  };
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const onFinishFailed = (errorInfo) => {
+    console.log('Failed:', errorInfo);
+  };
 
   return (
-    <div>
-      <h1>Login Form</h1>
-      <form onSubmit={onSubmit}>
-        <input
-          type="text"
-          name="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <br/>
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <br/>
-        <input
-          type="submit"
-          value="Login"
-        />
-      </form>
+    <div style={pageWrapper}>
+      <Card title="School Web Portal" style={{width: 400}}>
+        <Form
+          name="login-form"
+          initialValues={{
+            remember: true,
+          }}
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+        >
+          <Form.Item
+            name="email"
+            rules={[
+              {
+                required: true,
+                message: 'Please input your email!',
+              },
+            ]}
+          >
+            <Input placeholder="Email"/>
+          </Form.Item>
+
+          <Form.Item
+            name="password"
+            rules={[
+              {
+                required: true,
+                message: 'Please input your password!',
+              },
+            ]}
+          >
+            <Input.Password placeholder="Password"/>
+          </Form.Item>
+
+          <Form.Item>
+            <Button type="primary" htmlType="submit">
+              Login
+            </Button>
+          </Form.Item>
+        </Form>
+      </Card>
     </div>
-  )
+  );
 }
 
 export default LoginComponent;

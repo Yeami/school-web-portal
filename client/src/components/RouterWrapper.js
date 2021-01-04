@@ -47,7 +47,7 @@ const svgStyles = {
   color: 'red',
 };
 
-function RouterComponent() {
+function RouterWrapper() {
   const dispatch = useDispatch();
 
   const user = useSelector(state => state.userReducer.user);
@@ -120,4 +120,4 @@ function RouterComponent() {
   );
 }
 
-export default RouterComponent;
+export default RouterWrapper;

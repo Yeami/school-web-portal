@@ -45,6 +45,14 @@ const userSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Position',
   },
+  dateJoined: {
+    type: Date,
+    default: Date.now,
+    required: true,
+  },
+  birthDate: {
+    type: Date,
+  },
   tokens: [{
     token: {
       type: String,

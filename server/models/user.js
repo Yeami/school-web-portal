@@ -3,6 +3,8 @@ const validator = require('validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
+require('./position');
+
 const userSchema = mongoose.Schema({
   firstName: {
     type: String,
@@ -39,6 +41,10 @@ const userSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  position: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Position',
+  },
   tokens: [{
     token: {
       type: String,
@@ -68,11 +74,19 @@ userSchema.methods.generateAuthToken = async function () {
 userSchema.statics.findByCredentials = async (email, password) => {
   // Search for a user by email and password.
   // eslint-disable-next-line no-use-before-define
-  const user = await User.findOne({ email });
+  const user = await User.findOne({ email })
+    .populate('position')
+    .then((u) => {
+      console.log('[INFO] User in population', u);
+      return u;
+    })
+    .catch((err) => {
+      console.log('[ERROR] During population in user model: ', err);
+    });
   if (!user) {
     throw new Error({ error: 'Invalid login credentials' });
   }
-  const isPasswordMatch = await bcrypt.compare(password, user.password);
+  const isPasswordMatch = bcrypt.compare(password, user.password);
   if (!isPasswordMatch) {
     throw new Error({ error: 'Invalid login credentials' });
   }

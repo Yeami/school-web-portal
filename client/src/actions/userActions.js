@@ -7,10 +7,21 @@ export const logUserOut = () => ({type: 'LOG_OUT'})
 export const fetchUser = (user) => dispatch => {
   axios.post(`http://localhost:3100/users/login`, {user})
     .then(res => {
-      localStorage.setItem('token', res.data.token)
-      dispatch(setUser(res.data.user))
-    })
-}
+      localStorage.setItem('token', `Bearer ${res.data.token}`);
+      dispatch(setUser(res.data.user));
+    });
+};
+
+export const getUserInfo = () => dispatch => {
+  axios.get(`http://localhost:3100/users/me`, {
+    headers: {
+      'Authorization': localStorage.getItem('token'),
+    }
+  })
+    .then(res => {
+      dispatch(setUser(res.data));
+    });
+};
 
 // export const signUserUp = (userInfo) => dispatch => {
 //   fetch(`http://localhost:4000/users`, {

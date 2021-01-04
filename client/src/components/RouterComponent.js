@@ -16,10 +16,8 @@ import {
   Link,
 } from 'react-router-dom';
 
-import history from '../utils/history';
-
 import LoginComponent from './LoginComponent';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {isEmpty} from '../utils/utils';
 import ProfileView from '../views/ProfileView';
 import GuardedRoute from '../utils/route-guard';
@@ -27,6 +25,7 @@ import NewsView from '../views/NewsView';
 import ClassesView from '../views/ClassesView';
 import SubjectsView from '../views/SubjectsView';
 import TeachersView from '../views/TeachersView';
+import {getUserInfo} from "../actions/userActions";
 
 const routerWrapper = {
   display: 'flex',
@@ -48,6 +47,8 @@ const svgStyles = {
 };
 
 function RouterComponent() {
+  const dispatch = useDispatch();
+
   const user = useSelector(state => state.userReducer.user);
   const token = localStorage.getItem('token');
   const isEmptyUser = isEmpty(user) && user.constructor === Object;
@@ -59,6 +60,7 @@ function RouterComponent() {
     console.log('[INFO] User info and token are empty');
   } else if (isEmptyUser && token) {
     console.log('[INFO] User info is empty, but token exists');
+    dispatch(getUserInfo());
   } else {
     console.log('[INFO] User info and token exists');
   }
@@ -66,7 +68,7 @@ function RouterComponent() {
   const isAuthenticated = (!isEmptyUser && Boolean(token));
 
   return (
-    <Router history={history}>
+    <Router>
       <div style={routerWrapper}>
         <div className="logo">
           <RocketTwoTone style={svgStyles} twoToneColor="red"/> School Web Portal

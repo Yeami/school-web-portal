@@ -1,4 +1,4 @@
-import {Menu} from 'antd';
+import {Avatar, Menu} from 'antd';
 import {
   MailOutlined,
   TeamOutlined,
@@ -37,6 +37,7 @@ const routerWrapper = {
   borderBottom: '1px solid rgba(0,0,0,0.15)',
   padding: '0 3rem',
   marginBottom: '2rem',
+  backgroundColor: '#ffffff',
 };
 
 const menuStyles = {
@@ -55,8 +56,8 @@ function RouterWrapper() {
   const token = localStorage.getItem('token');
   const isEmptyUser = isEmpty(user) && user.constructor === Object;
 
-  console.log('User: ', user);
-  console.log('Token: ', token);
+  console.log('\n[INFO] User: ', user);
+  console.log('[INFO] Token: ', token);
 
   if (isEmptyUser && !token) {
     console.log('[INFO] User info and token are empty');
@@ -104,8 +105,14 @@ function RouterWrapper() {
           }
         </Menu>
 
-        <div style={{fontSize: '1.15rem'}}>
-          <Link to="/login">Login <LoginOutlined style={{...svgStyles, color: '#1890ff'}}/></Link>
+        <div style={{display: 'flex', alignItems: 'center', fontSize: isAuthenticated ? '1rem' : '1.15rem'}}>
+          {isAuthenticated &&
+          <div>
+            <Avatar size={38} src={user.avatarUrl} style={{marginRight: '1rem'}}/>
+            <span>Hello there <span style={{fontStyle: 'italic'}}>{user.firstName} {user.lastName}</span>!</span>
+          </div>
+          }
+          {!isAuthenticated && <Link to="/login">Login <LoginOutlined style={{...svgStyles, color: '#1890ff'}}/></Link>}
         </div>
       </div>
 

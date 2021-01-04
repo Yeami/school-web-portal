@@ -35,6 +35,10 @@ const userSchema = mongoose.Schema({
     required: true,
     minLength: 7,
   },
+  avatarUrl: {
+    type: String,
+    required: true,
+  },
   tokens: [{
     token: {
       type: String,

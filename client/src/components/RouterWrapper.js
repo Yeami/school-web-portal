@@ -10,16 +10,12 @@ import {
 } from '@ant-design/icons';
 
 import React from 'react';
-import {useDispatch, useSelector} from 'react-redux';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link,
 } from 'react-router-dom';
-
-import {isEmpty} from '../utils/utils';
-import {getUserInfo} from "../actions/userActions";
 
 import LoginView from '../views/LoginView';
 import ProfileView from '../views/ProfileView';
@@ -28,6 +24,7 @@ import NewsView from '../views/NewsView';
 import ClassesView from '../views/ClassesView';
 import SubjectsView from '../views/SubjectsView';
 import TeachersView from '../views/TeachersView';
+import {useSelector} from 'react-redux';
 
 const routerWrapper = {
   display: 'flex',
@@ -49,26 +46,9 @@ const svgStyles = {
   color: 'red',
 };
 
-function RouterWrapper() {
-  const dispatch = useDispatch();
-
+function RouterWrapper(props) {
   const user = useSelector(state => state.userReducer.user);
-  const token = localStorage.getItem('token');
-  const isEmptyUser = isEmpty(user) && user.constructor === Object;
-
-  console.log('\n[INFO] User: ', user);
-  console.log('[INFO] Token: ', token);
-
-  if (isEmptyUser && !token) {
-    console.log('[INFO] User info and token are empty');
-  } else if (isEmptyUser && token) {
-    console.log('[INFO] User info is empty, but token exists');
-    dispatch(getUserInfo());
-  } else {
-    console.log('[INFO] User info and token exists');
-  }
-
-  const isAuthenticated = (!isEmptyUser && Boolean(token));
+  const isAuthenticated = props.isAuthenticated;
 
   return (
     <Router>

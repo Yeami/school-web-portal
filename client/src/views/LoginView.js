@@ -4,6 +4,8 @@ import {fetchUser} from '../actions/userActions';
 
 import {Form, Input, Button, Card} from 'antd';
 
+import {Redirect} from "react-router-dom";
+
 const pageWrapper = {
   display: 'flex',
   justifyContent: 'center',
@@ -12,7 +14,7 @@ const pageWrapper = {
   height: '100vh',
 };
 
-function LoginView() {
+function LoginView(props) {
   const dispatch = useDispatch();
 
   const onFinish = (values) => {
@@ -26,6 +28,8 @@ function LoginView() {
 
   return (
     <div style={pageWrapper}>
+      {props.isAuth ? <Redirect to="/profile"/> : null}
+
       <Card title="School Web Portal" style={{width: 400}}>
         <Form
           name="login-form"

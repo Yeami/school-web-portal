@@ -109,7 +109,7 @@ function RouterWrapper() {
       </div>
 
       <Switch>
-        <Route exact path='/login' component={LoginView}/>
+        <Route exact path='/login' render={(props) => (<LoginView {...props} isAuth={isAuthenticated}/>)}/>
         <Route path='/news' component={NewsView}/>
         <GuardedRoute path='/classes' component={ClassesView} auth={isAuthenticated}/>
         <Route path='/subjects' component={SubjectsView}/>

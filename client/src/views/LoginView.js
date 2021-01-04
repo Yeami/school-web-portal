@@ -12,7 +12,7 @@ const pageWrapper = {
   height: '100vh',
 };
 
-function LoginComponent() {
+function LoginView() {
   const dispatch = useDispatch();
 
   const onFinish = (values) => {
@@ -70,4 +70,4 @@ function LoginComponent() {
   );
 }
 
-export default LoginComponent;
+export default LoginView;

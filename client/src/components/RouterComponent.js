@@ -9,6 +9,7 @@ import {
 } from '@ant-design/icons';
 
 import React from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import {
   BrowserRouter as Router,
   Switch,
@@ -16,16 +17,16 @@ import {
   Link,
 } from 'react-router-dom';
 
-import LoginComponent from './LoginComponent';
-import {useDispatch, useSelector} from 'react-redux';
 import {isEmpty} from '../utils/utils';
+import {getUserInfo} from "../actions/userActions";
+
+import LoginView from '../views/LoginView';
 import ProfileView from '../views/ProfileView';
 import GuardedRoute from '../utils/route-guard';
 import NewsView from '../views/NewsView';
 import ClassesView from '../views/ClassesView';
 import SubjectsView from '../views/SubjectsView';
 import TeachersView from '../views/TeachersView';
-import {getUserInfo} from "../actions/userActions";
 
 const routerWrapper = {
   display: 'flex',
@@ -108,7 +109,7 @@ function RouterComponent() {
       </div>
 
       <Switch>
-        <Route exact path='/login' component={LoginComponent}/>
+        <Route exact path='/login' component={LoginView}/>
         <Route path='/news' component={NewsView}/>
         <GuardedRoute path='/classes' component={ClassesView} auth={isAuthenticated}/>
         <Route path='/subjects' component={SubjectsView}/>

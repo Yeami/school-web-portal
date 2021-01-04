@@ -5,7 +5,8 @@ import {
   ReadOutlined,
   HighlightOutlined,
   LoginOutlined,
-  RocketTwoTone
+  RocketTwoTone,
+  UserOutlined,
 } from '@ant-design/icons';
 
 import React from 'react';
@@ -97,7 +98,7 @@ function RouterWrapper() {
 
           {
             isAuthenticated &&
-            <Menu.Item key="profile" icon={<HighlightOutlined style={svgStyles}/>}>
+            <Menu.Item key="profile" icon={<UserOutlined style={svgStyles}/>}>
               <Link to="/profile">Profile</Link>
             </Menu.Item>
           }

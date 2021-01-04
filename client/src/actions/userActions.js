@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {notify} from '../utils/notification';
 
 const setUser = (payload) => ({type: 'SET_USER', payload})
 
@@ -9,6 +10,10 @@ export const fetchUser = (user) => dispatch => {
     .then(res => {
       localStorage.setItem('token', `Bearer ${res.data.token}`);
       dispatch(setUser(res.data.user));
+      notify('success', 'Successful authorization', 'The credentials you entered are correct. So logging into the system...')
+    })
+    .catch(() => {
+      notify('error', 'Unsuccessful authorization', 'The credentials you entered did not match our records. Please double-check and try again.')
     });
 };
 

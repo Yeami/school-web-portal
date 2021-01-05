@@ -101,6 +101,21 @@ userSchema.statics.findByCredentials = async (email, password) => {
   return user;
 };
 
+userSchema.statics.findByEmail = async (email) => {
+  // Search for a user by email and password.
+  // eslint-disable-next-line no-use-before-define
+  const user = await User.findOne({ email })
+    .populate('position')
+    .then((u) => u)
+    .catch((err) => {
+      console.log('[ERROR] During population in user model: ', err);
+    });
+  if (!user) {
+    throw new Error({ error: 'Invalid login credentials' });
+  }
+  return user;
+};
+
 const User = mongoose.model('User', userSchema);
 
 module.exports = User;

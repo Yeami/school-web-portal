@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import ProfileFormComponent from '../components/profile/ProfileFormComponent';
-import {Avatar, Button} from 'antd';
+import {Avatar, Button, Popconfirm} from 'antd';
 import moment from 'moment'
-import {PlusOutlined} from "@ant-design/icons";
+import {PlusOutlined} from '@ant-design/icons';
+import {logOutUser} from '../actions/userActions';
 
 const pageWrapper = {
   display: 'flex',
@@ -35,6 +36,7 @@ const leftColumn = {
 };
 
 function ProfileView() {
+  const dispatch = useDispatch();
   const user = useSelector(state => state.userReducer.user);
 
   const [fields, setFields] = useState([
@@ -58,6 +60,10 @@ function ProfileView() {
 
   const birthDate = moment(user.birthDate).format('Do MMMM YYYY');
   const dateJoined = moment(user.dateJoined).format('Do MMMM YYYY');
+
+  const logOut = () => {
+    dispatch(logOutUser());
+  };
 
   return (
     <div style={pageWrapper}>
@@ -92,7 +98,15 @@ function ProfileView() {
             </div>
 
             <div style={{marginTop: '1.5rem'}}>
-              <Button type="primary">Log out</Button>
+              <Popconfirm
+                title="Are you sure to log out from this device?"
+                onConfirm={logOut}
+                okText="Yes"
+                cancelText="No"
+              >
+                <Button type="primary">Log out</Button>
+              </Popconfirm>
+
               <Button type="link">Log out from all devices</Button>
             </div>
           </div>

@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 
 import {useDispatch, useSelector} from 'react-redux';
 import ProfileFormComponent from '../components/profile/ProfileFormComponent';
 import {Avatar, Button, Popconfirm} from 'antd';
 import moment from 'moment'
 import {PlusOutlined} from '@ant-design/icons';
-import {logOutUser} from '../actions/userActions';
+import {logOutUser, logOutUserAllDevices} from '../actions/userActions';
 
 const pageWrapper = {
   display: 'flex',
@@ -65,6 +65,10 @@ function ProfileView() {
     dispatch(logOutUser());
   };
 
+  const logOutAll = () => {
+    dispatch(logOutUserAllDevices());
+  };
+
   return (
     <div style={pageWrapper}>
       <div style={cardWrapper}>
@@ -79,7 +83,7 @@ function ProfileView() {
               <Button
                 type="dashed"
                 style={{margin: '1rem 0'}}
-                icon={<PlusOutlined />}
+                icon={<PlusOutlined/>}
               >
                 Upload photo
               </Button>
@@ -107,7 +111,14 @@ function ProfileView() {
                 <Button type="primary">Log out</Button>
               </Popconfirm>
 
-              <Button type="link">Log out from all devices</Button>
+              <Popconfirm
+                title="Are you sure to log out from all devices?"
+                onConfirm={logOutAll}
+                okText="Yes"
+                cancelText="No"
+              >
+                <Button type="link">Log out from all devices</Button>
+              </Popconfirm>
             </div>
           </div>
 

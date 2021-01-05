@@ -37,6 +37,17 @@ export const logOutUser = () => dispatch => {
     });
 };
 
+export const logOutUserAllDevices = () => dispatch => {
+  axios.post(`http://localhost:3100/users/me/logoutall`, {}, {
+    headers: {
+      'Authorization': localStorage.getItem('token'),
+    }
+  })
+    .then(() => {
+      dispatch({type: 'LOG_OUT'});
+    });
+};
+
 // export const signUserUp = (userInfo) => dispatch => {
 //   fetch(`http://localhost:4000/users`, {
 //     method: "POST",

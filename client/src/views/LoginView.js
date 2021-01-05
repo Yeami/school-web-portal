@@ -1,10 +1,10 @@
 import React from 'react'
 import {useDispatch} from 'react-redux';
-import {fetchUser} from '../actions/userActions';
+import {logInUser} from '../actions/userActions';
 
 import {Form, Input, Button, Card} from 'antd';
 
-import {Redirect} from "react-router-dom";
+import {Redirect} from 'react-router-dom';
 
 const pageWrapper = {
   display: 'flex',
@@ -19,7 +19,7 @@ function LoginView(props) {
 
   const onFinish = (values) => {
     console.log('Success:', values);
-    dispatch(fetchUser(values));
+    dispatch(logInUser(values));
   };
 
   const onFinishFailed = (errorInfo) => {

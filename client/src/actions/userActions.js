@@ -3,9 +3,7 @@ import {notify} from '../utils/notification';
 
 const setUser = (payload) => ({type: 'SET_USER', payload})
 
-export const logUserOut = () => ({type: 'LOG_OUT'})
-
-export const fetchUser = (user) => dispatch => {
+export const logInUser = (user) => dispatch => {
   axios.post(`http://localhost:3100/users/login`, {user})
     .then(res => {
       localStorage.setItem('token', `Bearer ${res.data.token}`);

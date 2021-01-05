@@ -26,6 +26,17 @@ export const getUserInfo = () => dispatch => {
     });
 };
 
+export const logOutUser = () => dispatch => {
+  axios.post(`http://localhost:3100/users/me/logout`, {}, {
+    headers: {
+      'Authorization': localStorage.getItem('token'),
+    }
+  })
+    .then(() => {
+      dispatch({type: 'LOG_OUT'});
+    });
+};
+
 // export const signUserUp = (userInfo) => dispatch => {
 //   fetch(`http://localhost:4000/users`, {
 //     method: "POST",

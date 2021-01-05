@@ -31,6 +31,13 @@ router.post('/login', async (req, res) => {
   }
 });
 
+router.get('/me', auth, async (req, res) => {
+  // View logged in user profile
+  const { email } = req.user;
+  const user = await User.findByEmail(email);
+  res.send(user);
+});
+
 router.post('/me/logout', auth, async (req, res) => {
   // Log user out of the application
   try {
@@ -51,11 +58,6 @@ router.post('/me/logoutall', auth, async (req, res) => {
   } catch (error) {
     res.status(500).send(error);
   }
-});
-
-router.get('/me', auth, async (req, res) => {
-  // View logged in user profile
-  res.send(req.user);
 });
 
 module.exports = router;

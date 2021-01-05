@@ -34,6 +34,7 @@ export const logOutUser = () => dispatch => {
   })
     .then(() => {
       dispatch({type: 'LOG_OUT'});
+      notify('info', 'Single device log out', 'You have been log out from the system on this device successfully');
     });
 };
 
@@ -45,6 +46,7 @@ export const logOutUserAllDevices = () => dispatch => {
   })
     .then(() => {
       dispatch({type: 'LOG_OUT'});
+      notify('info', 'Multiple device log out', 'You have been log out from the system on all your devices successfully');
     });
 };
 

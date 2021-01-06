@@ -60,4 +60,18 @@ router.post('/me/logoutall', auth, async (req, res) => {
   }
 });
 
+router.post('/me/update', auth, async (req, res) => {
+  // Update the user info
+  try {
+    const filter = { _id: req.user._id };
+    const update = { ...req.body.user };
+
+    User.findOneAndUpdate(filter, update)
+      .populate('position')
+      .then((user) => res.send(user));
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
 module.exports = router;

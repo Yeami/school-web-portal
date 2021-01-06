@@ -50,6 +50,21 @@ export const logOutUserAllDevices = () => dispatch => {
     });
 };
 
+export const updateUserInfo = (user) => dispatch => {
+  axios.post(`http://localhost:3100/users/me/update`, {user}, {
+    headers: {
+      'Authorization': localStorage.getItem('token'),
+    }
+  })
+    .then(res => {
+      dispatch(setUser(res.data));
+      notify('success', 'Successful update', 'You have successfully updated your personal information');
+    })
+    .catch((res) => {
+      notify('error', 'Unsuccessful update', 'Oops, something went wrong and your personal information was not updated. Please, try one more time later');
+    });
+};
+
 // export const signUserUp = (userInfo) => dispatch => {
 //   fetch(`http://localhost:4000/users`, {
 //     method: "POST",

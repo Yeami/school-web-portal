@@ -5,7 +5,7 @@ import ProfileFormComponent from '../components/profile/ProfileFormComponent';
 import {Avatar, Button, Popconfirm} from 'antd';
 import moment from 'moment'
 import {PlusOutlined} from '@ant-design/icons';
-import {logOutUser, logOutUserAllDevices} from '../actions/userActions';
+import {logOutUser, logOutUserAllDevices, updateUserInfo} from '../actions/userActions';
 
 const pageWrapper = {
   display: 'flex',
@@ -69,6 +69,10 @@ function ProfileView() {
     dispatch(logOutUserAllDevices());
   };
 
+  const updateInfo = (user) => {
+    dispatch(updateUserInfo(user));
+  };
+
   return (
     <div style={pageWrapper}>
       <div style={cardWrapper}>
@@ -128,6 +132,7 @@ function ProfileView() {
               onChange={(newFields) => {
                 setFields(newFields);
               }}
+              onUpdate={updateInfo}
             />
           </div>
 

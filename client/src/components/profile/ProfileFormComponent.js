@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button, Form, Input} from 'antd';
 
-const ProfileFormComponent = ({ onChange, fields }) => {
+const ProfileFormComponent = ({ onChange, fields, onUpdate }) => {
   return (
     <Form
       layout="vertical"
@@ -10,6 +10,7 @@ const ProfileFormComponent = ({ onChange, fields }) => {
       onFieldsChange={(_, allFields) => {
         onChange(allFields);
       }}
+      onFinish={onUpdate}
     >
       <Form.Item
         label="First name:"

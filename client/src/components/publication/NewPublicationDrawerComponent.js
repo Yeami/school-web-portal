@@ -2,7 +2,7 @@ import React from 'react';
 import {Button, Drawer} from 'antd';
 import NewPublicationFormComponent from './NewPublicationFormComponent';
 import {useDispatch} from 'react-redux';
-import {createPublication} from '../../actions/publicationActions';
+import {createPublication} from '../../store/actions/publicationActions';
 
 const NewPublicationDrawerComponent = ({onClose, visible}) => {
   const dispatch = useDispatch();

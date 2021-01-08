@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {notify} from '../utils/notification';
+import {notify} from '../../utils/notification';
 
 const setUser = (payload) => ({type: 'SET_USER', payload});
 

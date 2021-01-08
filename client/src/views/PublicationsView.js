@@ -3,7 +3,7 @@ import {Button} from 'antd';
 import {PlusOutlined} from '@ant-design/icons';
 import NewPublicationDrawerComponent from "../components/publication/NewPublicationDrawerComponent";
 import {useDispatch, useSelector} from 'react-redux';
-import {getPublications} from '../actions/publicationActions';
+import {getPublications} from '../store/actions/publicationActions';
 import PublicationCardComponent from '../components/publication/PublicationCardComponent';
 
 const pageWrapper = {

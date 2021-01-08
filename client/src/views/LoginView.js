@@ -1,6 +1,6 @@
 import React from 'react'
 import {useDispatch} from 'react-redux';
-import {logInUser} from '../actions/userActions';
+import {logInUser} from '../store/actions/userActions';
 
 import {Form, Input, Button, Card} from 'antd';
 

@@ -5,7 +5,7 @@ import ProfileFormComponent from '../components/profile/ProfileFormComponent';
 import {Avatar, Button, Popconfirm} from 'antd';
 import moment from 'moment'
 import {PlusOutlined} from '@ant-design/icons';
-import {logOutUser, logOutUserAllDevices, updateUserInfo} from '../actions/userActions';
+import {logOutUser, logOutUserAllDevices, updateUserInfo} from '../store/actions/userActions';
 
 const pageWrapper = {
   display: 'flex',

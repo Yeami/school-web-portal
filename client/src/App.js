@@ -5,7 +5,7 @@ import RouterWrapper from './components/RouterWrapper';
 import 'antd/dist/antd.css';
 import {useDispatch, useSelector} from 'react-redux';
 import {isEmpty} from './utils/utils';
-import {getUserInfo} from './actions/userActions';
+import {getUserInfo} from './store/actions/userActions';
 
 function App() {
   const dispatch = useDispatch();

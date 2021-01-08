@@ -20,7 +20,7 @@ import {
 import LoginView from '../views/LoginView';
 import ProfileView from '../views/ProfileView';
 import GuardedRoute from '../utils/route-guard';
-import NewsView from '../views/NewsView';
+import PublicationsView from '../views/PublicationsView';
 import ClassesView from '../views/ClassesView';
 import SubjectsView from '../views/SubjectsView';
 import TeachersView from '../views/TeachersView';
@@ -98,7 +98,7 @@ function RouterWrapper(props) {
 
       <Switch>
         <Route exact path='/login' render={(props) => (<LoginView {...props} isAuth={isAuthenticated}/>)}/>
-        <Route path='/news' component={NewsView}/>
+        <Route path='/news' component={PublicationsView}/>
         <GuardedRoute path='/classes' component={ClassesView} auth={isAuthenticated}/>
         <Route path='/subjects' component={SubjectsView}/>
         <Route path='/teachers' component={TeachersView}/>

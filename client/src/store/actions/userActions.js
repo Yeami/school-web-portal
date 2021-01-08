@@ -2,6 +2,7 @@ import axios from 'axios';
 import {notify} from '../../utils/notification';
 
 const setUser = (payload) => ({type: 'SET_USER', payload});
+const setAllUsers = (payload) => ({type: 'SET_USERS', payload});
 
 export const logInUser = (user) => dispatch => {
   axios.post(`http://localhost:3100/users/login`, {user})
@@ -62,6 +63,16 @@ export const updateUserInfo = (user) => dispatch => {
     })
     .catch((res) => {
       notify('error', 'Unsuccessful update', 'Oops, something went wrong and your personal information was not updated. Please, try one more time later');
+    });
+};
+
+export const getAllUsers = () => dispatch => {
+  axios.get(`http://localhost:3100/users/all`)
+    .then(res => {
+      dispatch(setAllUsers(res.data));
+    })
+    .catch(() => {
+      notify('error', 'Error', 'Sorry, something went wrong and we can`t load the list of all teacher. Please, try one more time later.');
     });
 };
 

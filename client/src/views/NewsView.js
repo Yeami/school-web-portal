@@ -1,6 +1,7 @@
-import React from 'react';
-import {Image} from 'antd';
-import {FieldTimeOutlined} from '@ant-design/icons';
+import React, { useState } from 'react';
+import {Button, Image} from 'antd';
+import {FieldTimeOutlined, PlusOutlined} from '@ant-design/icons';
+import NewPublicationDrawerComponent from "../components/publication/NewPublicationDrawerComponent";
 
 const pageWrapper = {
   display: 'flex',
@@ -11,6 +12,8 @@ const pageWrapper = {
 const titleCardWrapper = {
   width: '64rem',
   backgroundColor: '#fafafa',
+  display: 'flex',
+  justifyContent: 'space-between',
 };
 
 const contentCardWrapper = {
@@ -28,10 +31,32 @@ const contentCardHeader = {
 };
 
 function NewsView() {
+  const [visible, setVisible] = useState(false);
+
+  const showDrawer = () => {
+    setVisible(true);
+  };
+
+  const onClose = () => {
+    setVisible(false);
+  };
+
   return (
     <div style={pageWrapper}>
       <div style={titleCardWrapper}>
         <h1>News page</h1>
+        <Button
+          type="dashed"
+          style={{margin: '1rem 0'}}
+          icon={<PlusOutlined/>}
+          onClick={showDrawer}
+        >
+          Create publication
+        </Button>
+        <NewPublicationDrawerComponent
+          onClose={onClose}
+          visible={visible}
+        />
       </div>
 
       <div style={contentCardWrapper}>

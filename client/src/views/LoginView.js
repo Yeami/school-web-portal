@@ -9,9 +9,6 @@ import {Redirect} from 'react-router-dom';
 const pageWrapper = {
   display: 'flex',
   justifyContent: 'center',
-  alignItems: 'center',
-  width: '100%',
-  height: '100vh',
 };
 
 function LoginView(props) {

@@ -1,6 +1,7 @@
 const defaultState = {
   // loggedIn: false,
   user: {},
+  users: {},
 };
 
 const userReducer = (state = defaultState, action) => {
@@ -17,6 +18,11 @@ const userReducer = (state = defaultState, action) => {
         // loggedIn: false,
         ...state,
         user: {},
+      };
+    case 'SET_USERS':
+      return {
+        ...state,
+        users: action.payload,
       };
     default:
       return state;

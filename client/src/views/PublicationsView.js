@@ -5,19 +5,7 @@ import NewPublicationDrawerComponent from "../components/publication/NewPublicat
 import {useDispatch, useSelector} from 'react-redux';
 import {getPublications} from '../store/actions/publicationActions';
 import PublicationCardComponent from '../components/publication/PublicationCardComponent';
-
-const pageWrapper = {
-  display: 'flex',
-  alignItems: 'center',
-  flexDirection: 'column',
-};
-
-const titleCardWrapper = {
-  width: '64rem',
-  backgroundColor: '#fafafa',
-  display: 'flex',
-  justifyContent: 'space-between',
-};
+import {pageWrapper, titleCardWrapper} from '../utils/styles';
 
 function PublicationsView(props) {
   const dispatch = useDispatch();

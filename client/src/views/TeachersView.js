@@ -1,10 +1,10 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {getAllUsers} from '../store/actions/userActions';
 import {Button} from 'antd';
 import {PlusOutlined} from '@ant-design/icons';
 import {pageWrapper, titleCardWrapper} from '../utils/styles';
-import TeacherCardComponent from "../components/teacher/TeacherCardComponent";
+import TeacherCardComponent from '../components/teacher/TeacherCardComponent';
+import {getAllTeachers} from '../store/actions/teacherActions';
 
 const contentWrapper = {
   display: 'flex',
@@ -14,9 +14,9 @@ const contentWrapper = {
 function TeachersView({isAuth}) {
   const dispatch = useDispatch();
 
-  useEffect(() => dispatch(getAllUsers()), [dispatch]);
+  useEffect(() => dispatch(getAllTeachers()), [dispatch]);
 
-  const teachers = useSelector(state => state.userReducer.users);
+  const teachers = useSelector(state => state.teacherReducer.teachers);
 
   // const [visible, setVisible] = useState(false);
 

@@ -4,18 +4,6 @@ const auth = require('../middleware/auth');
 
 const router = express.Router();
 
-router.post('/', async (req, res) => {
-  // Create a new user
-  try {
-    const user = new User(req.body);
-    await user.save();
-    const token = await user.generateAuthToken();
-    res.status(201).send({ user, token });
-  } catch (error) {
-    res.status(400).send(error);
-  }
-});
-
 router.post('/login', async (req, res) => {
   // Login a registered user
   try {
@@ -26,6 +14,31 @@ router.post('/login', async (req, res) => {
     }
     const token = await user.generateAuthToken();
     res.send({ user, token });
+  } catch (error) {
+    res.status(400).send(error);
+  }
+});
+
+router.get('/all', async (req, res) => {
+  try {
+    res.status(200).send(
+      await User
+        .find()
+        .populate('position')
+        .then((u) => u),
+    );
+  } catch (error) {
+    res.status(400).send(error);
+  }
+});
+
+router.post('/', auth, async (req, res) => {
+  // Create a new user
+  try {
+    const user = new User(req.body);
+    await user.save();
+    const token = await user.generateAuthToken();
+    res.status(201).send({ user, token });
   } catch (error) {
     res.status(400).send(error);
   }

@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import {Button} from 'antd';
 import {PlusOutlined} from '@ant-design/icons';
 import NewPublicationDrawerComponent from "../components/publication/NewPublicationDrawerComponent";
 import {useDispatch, useSelector} from 'react-redux';
 import {getPublications} from '../actions/publicationActions';
-import PublicationCardComponent from "../components/publication/PublicationCardComponent";
+import PublicationCardComponent from '../components/publication/PublicationCardComponent';
 
 const pageWrapper = {
   display: 'flex',
@@ -19,7 +19,7 @@ const titleCardWrapper = {
   justifyContent: 'space-between',
 };
 
-function PublicationsView() {
+function PublicationsView(props) {
   const dispatch = useDispatch();
 
   useEffect(() => dispatch(getPublications()), [dispatch]);
@@ -40,14 +40,18 @@ function PublicationsView() {
     <div style={pageWrapper}>
       <div style={titleCardWrapper}>
         <h1>News page</h1>
-        <Button
-          type="dashed"
-          style={{margin: '1rem 0'}}
-          icon={<PlusOutlined/>}
-          onClick={showDrawer}
-        >
-          Create publication
-        </Button>
+        {
+          props.isAuth ?
+            <Button
+              type="dashed"
+              style={{margin: '1rem 0'}}
+              icon={<PlusOutlined/>}
+              onClick={showDrawer}
+            >
+              Create publication
+            </Button>
+            : null
+        }
         <NewPublicationDrawerComponent
           onClose={onClose}
           visible={visible}

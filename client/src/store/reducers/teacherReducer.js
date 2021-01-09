@@ -1,5 +1,5 @@
 const defaultState = {
-  teachers: {},
+  teachers: [],
 };
 
 const teacherReducer = (state = defaultState, action) => {
@@ -8,6 +8,11 @@ const teacherReducer = (state = defaultState, action) => {
       return {
         ...state,
         teachers: action.payload,
+      };
+    case 'PUSH_NEW_TEACHER':
+      state.teachers.push(action.payload)
+      return {
+        ...state,
       };
     default:
       return state;

@@ -2,6 +2,7 @@ import axios from "axios";
 import {notify} from "../../utils/notification";
 
 const setAllTeachers = (payload) => ({type: 'SET_TEACHERS', payload});
+const pushNewTeacher = (payload) => ({type: 'PUSH_NEW_TEACHER', payload});
 
 export const getAllTeachers = () => dispatch => {
   axios.get(`http://localhost:3100/teachers/all`)
@@ -13,23 +14,17 @@ export const getAllTeachers = () => dispatch => {
     });
 };
 
-// export const signUserUp = (userInfo) => dispatch => {
-//   fetch(`http://localhost:4000/users`, {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//       "Accept": "application/json"
-//     },
-//     body: JSON.stringify(userInfo)
-//   })
-//     .then(res => res.json())
-//     .then(data => {
-//       // data sent back will in the format of
-//       // {
-//       //     user: {},
-//       //.    token: "aaaaa.bbbbb.bbbbb"
-//       // }
-//       localStorage.setItem("token", data.token)
-//       dispatch(setUser(data.user))
-//     })
-// }
+export const createTeacher = (teacher) => dispatch => {
+  axios.post(`http://localhost:3100/teachers/`, {teacher}, {
+    headers: {
+      'Authorization': localStorage.getItem('token'),
+    }
+  })
+    .then(res => {
+      notify('success', 'Success', 'The new teacher was successfully added!');
+      dispatch(pushNewTeacher(res.data.user));
+    })
+    .catch(() => {
+      notify('error', 'Error', 'Sorry, something went wrong and new teacher was not added. Please, try one more time later.');
+    });
+};

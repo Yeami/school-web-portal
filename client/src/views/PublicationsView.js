@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Button} from 'antd';
 import {PlusOutlined} from '@ant-design/icons';
-import NewPublicationDrawerComponent from "../components/publication/NewPublicationDrawerComponent";
+import NewPublicationDrawerComponent from '../components/publication/NewPublicationDrawerComponent';
 import {useDispatch, useSelector} from 'react-redux';
 import {getPublications} from '../store/actions/publicationActions';
 import PublicationCardComponent from '../components/publication/PublicationCardComponent';

@@ -6,11 +6,11 @@ import moment from 'moment';
 const {Meta} = Card;
 
 const teacherCardWrapper = {
-  display: 'inline-block',
-  margin: '10px 0 0 10px',
-  flexGrow: 1,
-  height: '100px',
-  width: 'calc(100% * (1/4) - 10px - 1px)'
+  width: '33%',
+  boxSizing: 'border-box',
+  marginBottom: '1rem',
+  display: 'flex',
+  justifyContent: 'center'
 };
 
 const TeacherCardComponent = (teacher) => {

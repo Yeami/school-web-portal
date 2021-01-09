@@ -19,10 +19,10 @@ router.get('/all', async (req, res) => {
 
 router.post('/', auth, async (req, res) => {
   try {
-    const user = new User(req.body);
+    const user = new User(req.body.teacher);
     await user.save();
-    const token = await user.generateAuthToken();
-    res.status(201).send({ user, token });
+    await user.generateAuthToken();
+    res.status(201).send(user);
   } catch (error) {
     res.status(400).send(error);
   }

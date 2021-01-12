@@ -4,11 +4,7 @@ import {notify} from '../../utils/notification';
 const setPublications = (payload) => ({type: 'SET_PUBLICATIONS', payload});
 
 export const getPublications = () => dispatch => {
-  axios.get(`http://localhost:3100/publications/all`, {
-    headers: {
-      'Authorization': localStorage.getItem('token'),
-    }
-  })
+  axios.get(`http://localhost:3100/publications/all`)
     .then(res => {
       dispatch(setPublications(res.data));
     })

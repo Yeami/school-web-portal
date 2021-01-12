@@ -30,6 +30,7 @@ const TeacherCardComponent = (teacher) => {
           />
         }
         actions={[
+          // TODO teachers card actions
           <SettingOutlined key="setting"/>,
           <EditOutlined key="edit"/>,
           <EllipsisOutlined key="ellipsis"/>,

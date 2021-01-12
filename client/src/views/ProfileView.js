@@ -72,7 +72,7 @@ function ProfileView() {
   const updateInfo = (user) => {
     dispatch(updateUserInfo(user));
   };
-
+  // TODO Photo uploading
   return (
     <div style={pageWrapper}>
       <div style={cardWrapper}>

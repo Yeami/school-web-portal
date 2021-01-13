@@ -5,6 +5,7 @@ import publicationReducer from './publicationReducer';
 import teacherReducer from './teacherReducer';
 import positionReducer from './positionReducer';
 import subjectReducer from './subjectReducer';
+import classReducer from './classReducer';
 
 const rootReducer = combineReducers({
   userReducer,
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   teacherReducer,
   positionReducer,
   subjectReducer,
+  classReducer,
 });
 
 export default rootReducer;

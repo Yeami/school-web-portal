@@ -14,7 +14,6 @@ export const getClasses = () => dispatch => {
 };
 
 export const createClass = (name) => dispatch => {
-  console.log(name);
   axios.post(`http://localhost:3100/classes/new`, {class: {name}}, {
     headers: {
       'Authorization': localStorage.getItem('token'),
@@ -26,5 +25,20 @@ export const createClass = (name) => dispatch => {
     })
     .catch(() => {
       notify('error', 'Error', 'Sorry, something went wrong and new class was not created. Please, try one more time later.');
+    });
+};
+
+export const addStudentToClass = (data) => dispatch => {
+  axios.post(`http://localhost:3100/classes/student/new`, {data}, {
+    headers: {
+      'Authorization': localStorage.getItem('token'),
+    }
+  })
+    .then(res => {
+      notify('success', 'Success', 'The student was successfully added to the class!');
+      // dispatch();
+    })
+    .catch(() => {
+      notify('error', 'Error', 'Sorry, something went wrong and student was not added to the class. Please, try one more time later.');
     });
 };

@@ -25,6 +25,21 @@ router.post('/new', auth, async (req, res) => {
   }
 });
 
+router.patch('/update/:id', auth, async (req, res) => {
+  try {
+    const filter = { _id: req.params.id };
+    const update = { ...req.body };
+
+    await Subject.findOneAndUpdate(filter, update, {
+      new: true,
+    }).then((subject) => {
+      res.send(subject);
+    });
+  } catch (error) {
+    res.status(400).send(error);
+  }
+});
+
 router.delete('/remove', auth, async (req, res) => {
   try {
     const { id } = req.body;

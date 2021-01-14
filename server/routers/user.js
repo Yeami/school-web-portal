@@ -62,4 +62,18 @@ router.post('/me/update', auth, async (req, res) => {
   }
 });
 
+router.post('/me/avatar', auth, async (req, res) => {
+  // Update the user`s avatar URL
+  try {
+    const filter = { _id: req.user._id };
+    const update = { avatarUrl: req.body.avatarUrl };
+
+    User.findOneAndUpdate(filter, update)
+      .populate('position')
+      .then((user) => res.send(user));
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
 module.exports = router;

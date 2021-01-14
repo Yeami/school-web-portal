@@ -5,8 +5,10 @@ import {Button, Collapse} from 'antd';
 import {PlusOutlined} from '@ant-design/icons';
 
 import NewSubjectDrawerComponent from '../components/subject/NewSubjectDrawerComponent';
+import SubjectItemExtraComponent from '../components/subject/SubjectItemExtraComponent';
+
+import {getSubjects, removeSubject} from '../store/actions/subjectActions';
 import {pageWrapper, titleCardWrapper} from '../utils/styles';
-import {getSubjects} from '../store/actions/subjectActions';
 
 const { Panel } = Collapse;
 
@@ -26,6 +28,15 @@ function SubjectsView(props) {
   const onClose = () => {
     setVisible(false);
   };
+
+  const editClick = (subject) => {
+    console.log('editClick', subject);
+  }
+
+  const removeClick = (subject) => {
+    console.log('removeClick', subject);
+    dispatch(removeSubject(subject));
+  }
 
   return (
     <div style={pageWrapper}>
@@ -51,8 +62,21 @@ function SubjectsView(props) {
 
       <Collapse style={{width: '64rem'}}>
         {
-          subjects.map((p, i) => {
-            return <Panel header={p.name} key={i}> <p>{p.description}</p> </Panel>
+          subjects.map((s, i) => {
+            return <Panel
+              header={s.name}
+              key={i}
+              extra={
+                props.isAuth ?
+                  <SubjectItemExtraComponent
+                    subject={s}
+                    editClick={editClick}
+                    removeClick={removeClick}
+                  /> : null
+              }
+            >
+              <p>{s.description}</p>
+            </Panel>
           })
         }
       </Collapse>

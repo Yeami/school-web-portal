@@ -28,4 +28,19 @@ router.post('/new', auth, async (req, res) => {
   }
 });
 
+router.post('/student/new', auth, async (req, res) => {
+  try {
+    const { student, classId } = req.body.data;
+    await Class.findById(classId)
+      .then((c) => {
+        c.students.push(student);
+        c.save();
+      });
+
+    res.status(201).send();
+  } catch (error) {
+    res.status(400).send(error);
+  }
+});
+
 module.exports = router;

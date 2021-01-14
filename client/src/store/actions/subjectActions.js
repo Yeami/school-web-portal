@@ -2,6 +2,7 @@ import axios from 'axios';
 import {notify} from '../../utils/notification';
 
 const setSubjects = (payload) => ({type: 'SET_SUBJECTS', payload});
+const setNewSubject = (payload) => ({type: 'SET_NEW_SUBJECT', payload});
 const setUpdatedSubject = (payload) => ({type: 'SET_UPDATED_SUBJECT', payload});
 const setRemovedSubject = (payload) => ({type: 'SET_REMOVED_SUBJECT', payload});
 
@@ -23,7 +24,7 @@ export const createSubject = (subject) => dispatch => {
   })
     .then(res => {
       notify('success', 'Success', 'The new subject was successfully created!');
-      // dispatch();
+      dispatch(setNewSubject(res.data));
     })
     .catch(() => {
       notify('error', 'Error', 'Sorry, something went wrong and new subject was not created. Please, try one more time later.');

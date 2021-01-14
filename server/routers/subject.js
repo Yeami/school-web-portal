@@ -16,10 +16,12 @@ router.post('/new', auth, async (req, res) => {
   try {
     const { name, description } = req.body.subject;
 
-    res.status(201).send(new Subject({
+    new Subject({
       name,
       description,
-    }).save());
+    }).save().then((s) => {
+      res.status(201).send(s);
+    });
   } catch (error) {
     res.status(400).send(error);
   }

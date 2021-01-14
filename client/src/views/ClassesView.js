@@ -4,8 +4,10 @@ import {useDispatch, useSelector} from 'react-redux';
 import {Button, Tabs} from 'antd';
 import {PlusOutlined} from '@ant-design/icons';
 import {pageWrapper} from '../utils/styles';
-import NewClassModalComponent from '../components/class/NewClassModalComponent';
 import {createClass, getClasses} from '../store/actions/classActions';
+import NewClassModalComponent from '../components/class/NewClassModalComponent';
+import NewStudentDrawerComponent from '../components/class/NewStudentDrawerComponent';
+import StudentItemComponent from '../components/class/StudentItemComponent';
 
 const { TabPane } = Tabs;
 
@@ -31,6 +33,7 @@ const contentWrapper = {
 function ClassesView() {
   const dispatch = useDispatch();
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isDrawerVisible, setIsDrawerVisible] = useState(false);
 
   let name;
   const onClassNameChange = (e) => {
@@ -40,7 +43,6 @@ function ClassesView() {
   useEffect(() => dispatch(getClasses()), [dispatch]);
 
   const classes = useSelector(state => state.classReducer.classes);
-  console.log(classes);
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -53,6 +55,14 @@ function ClassesView() {
 
   const handleModalCancel = () => {
     setIsModalVisible(false);
+  };
+
+  const showDrawer = () => {
+    setIsDrawerVisible(true);
+  };
+
+  const onClose = () => {
+    setIsDrawerVisible(false);
   };
 
   return (
@@ -72,6 +82,7 @@ function ClassesView() {
           <Button
             type="dashed"
             icon={<PlusOutlined/>}
+            onClick={showDrawer}
           >
             Add new student
           </Button>
@@ -83,9 +94,8 @@ function ClassesView() {
             {
               classes.map((c, i) => {
                 return <TabPane tab={c.name} key={c._id}>
-                  Content of Tab Pane 1
+                  <StudentItemComponent students={c.students} key={i}/>
                 </TabPane>
-                // <PublicationCardComponent {...p} key={i}/>
               })
             }
           </Tabs>
@@ -98,6 +108,12 @@ function ClassesView() {
         handleOk={handleModalOk}
         handleCancel={handleModalCancel}
         onChange={onClassNameChange}
+      />
+
+      <NewStudentDrawerComponent
+        onClose={onClose}
+        visible={isDrawerVisible}
+        classes={classes}
       />
     </div>
   );

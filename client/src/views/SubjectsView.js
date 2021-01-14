@@ -6,8 +6,9 @@ import {PlusOutlined} from '@ant-design/icons';
 
 import NewSubjectDrawerComponent from '../components/subject/NewSubjectDrawerComponent';
 import SubjectItemExtraComponent from '../components/subject/SubjectItemExtraComponent';
+import EditSubjectModalComponent from '../components/subject/EditSubjectModalComponent';
 
-import {getSubjects, removeSubject} from '../store/actions/subjectActions';
+import {getSubjects, removeSubject, updateSubject} from '../store/actions/subjectActions';
 import {pageWrapper, titleCardWrapper} from '../utils/styles';
 
 const { Panel } = Collapse;
@@ -19,24 +20,44 @@ function SubjectsView(props) {
 
   const subjects = useSelector(state => state.subjectReducer.subjects);
 
-  const [visible, setVisible] = useState(false);
+  const [isDrawerVisible, setDrawerVisible] = useState(false);
+  const [isModalVisible, setModalVisible] = useState(false);
+  const [currentSubject, setCurrentSubject] = useState({});
 
   const showDrawer = () => {
-    setVisible(true);
+    setDrawerVisible(true);
   };
 
   const onClose = () => {
-    setVisible(false);
+    setDrawerVisible(false);
+  };
+
+  let name, description;
+  const onNameChange = (e) => {
+    name = e.target.value;
+  };
+
+  const onDescriptionChange = (e) => {
+    description = e.target.value;
   };
 
   const editClick = (subject) => {
-    console.log('editClick', subject);
+    setCurrentSubject(subject);
+    setModalVisible(true);
   }
 
   const removeClick = (subject) => {
-    console.log('removeClick', subject);
     dispatch(removeSubject(subject));
   }
+
+  const handleModalOk = () => {
+    setModalVisible(false);
+    dispatch(updateSubject(currentSubject._id, name, description));
+  };
+
+  const handleModalCancel = () => {
+    setModalVisible(false);
+  };
 
   return (
     <div style={pageWrapper}>
@@ -56,7 +77,7 @@ function SubjectsView(props) {
         }
         <NewSubjectDrawerComponent
           onClose={onClose}
-          visible={visible}
+          visible={isDrawerVisible}
         />
       </div>
 
@@ -80,6 +101,16 @@ function SubjectsView(props) {
           })
         }
       </Collapse>
+
+      <EditSubjectModalComponent
+        subject={currentSubject}
+        isVisible={isModalVisible}
+        handleOk={handleModalOk}
+        handleCancel={handleModalCancel}
+        onNameChange={onNameChange}
+        onDescriptionChange={onDescriptionChange}
+      />
+
     </div>
   );
 }

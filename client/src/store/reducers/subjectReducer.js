@@ -9,6 +9,12 @@ const subjectReducer = (state = defaultState, action) => {
         ...state,
         subjects: action.payload,
       };
+    case 'SET_UPDATED_SUBJECT':
+      const data = [...state.subjects.filter((s) => s._id !== action.payload._id), action.payload]
+      return {
+        ...state,
+        subjects: data,
+      };
     default:
       return state;
   }

@@ -25,4 +25,16 @@ router.post('/new', auth, async (req, res) => {
   }
 });
 
+router.delete('/remove', auth, async (req, res) => {
+  try {
+    const { id } = req.body;
+
+    await Subject.findByIdAndRemove(id);
+
+    res.status(201).send();
+  } catch (error) {
+    res.status(400).send(error);
+  }
+});
+
 module.exports = router;

@@ -64,3 +64,18 @@ export const updateUserInfo = (user) => dispatch => {
       notify('error', 'Unsuccessful update', 'Oops, something went wrong and your personal information was not updated. Please, try one more time later');
     });
 };
+
+export const updateAvatar = (avatarUrl) => dispatch => {
+  axios.post(`http://localhost:3100/users/me/avatar`, {avatarUrl}, {
+    headers: {
+      'Authorization': localStorage.getItem('token'),
+    }
+  })
+    .then(res => {
+      dispatch(setUser(res.data));
+      notify('success', 'Successful update', 'You have successfully updated your avatar!');
+    })
+    .catch(() => {
+      notify('error', 'Unsuccessful update', 'Oops, something went wrong and your avatar was not updated. Please, try one more time later');
+    });
+};

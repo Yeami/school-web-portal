@@ -54,7 +54,9 @@ router.post('/me/update', auth, async (req, res) => {
     const filter = { _id: req.user._id };
     const update = { ...req.body.user };
 
-    User.findOneAndUpdate(filter, update)
+    await User.findOneAndUpdate(filter, update, {
+      new: true,
+    })
       .populate('position')
       .then((user) => res.send(user));
   } catch (error) {
@@ -68,7 +70,9 @@ router.post('/me/avatar', auth, async (req, res) => {
     const filter = { _id: req.user._id };
     const update = { avatarUrl: req.body.avatarUrl };
 
-    User.findOneAndUpdate(filter, update)
+    await User.findOneAndUpdate(filter, update, {
+      new: true,
+    })
       .populate('position')
       .then((user) => res.send(user));
   } catch (error) {

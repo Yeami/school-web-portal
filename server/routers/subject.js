@@ -34,9 +34,8 @@ router.patch('/update/:id', auth, async (req, res) => {
 
     await Subject.findOneAndUpdate(filter, update, {
       new: true,
-    }).then((subject) => {
-      res.send(subject);
-    });
+    })
+      .then((subject) => res.send(subject));
   } catch (error) {
     res.status(400).send(error);
   }

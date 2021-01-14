@@ -27,3 +27,21 @@ export const createSubject = (subject) => dispatch => {
       notify('error', 'Error', 'Sorry, something went wrong and new subject was not created. Please, try one more time later.');
     });
 };
+
+export const removeSubject = (subject) => dispatch => {
+  axios.delete(`http://localhost:3100/subjects/remove`, {
+    headers: {
+      'Authorization': localStorage.getItem('token'),
+    },
+    data: {
+      id: subject._id
+    }
+  })
+    .then(() => {
+      notify('success', 'Success', 'The subject was successfully removed!');
+      // dispatch();
+    })
+    .catch(() => {
+      notify('error', 'Error', 'Sorry, something went wrong and subject was not removed. Please, try one more time later.');
+    });
+};

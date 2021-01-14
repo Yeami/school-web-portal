@@ -27,6 +27,7 @@ const EditSubjectModalComponent = (
         placeholder="The subject description"
         onChange={onDescriptionChange}
         rows={4}
+        style={{marginTop: '1rem'}}
       />
     </Modal>
   )

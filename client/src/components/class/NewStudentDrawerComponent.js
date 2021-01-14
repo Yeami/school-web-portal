@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Button, Drawer} from 'antd';
 import {useDispatch} from 'react-redux';
 import NewStudentFormComponent from './NewStudentFormComponent';
@@ -6,30 +6,36 @@ import {addStudentToClass} from '../../store/actions/classActions';
 
 const NewStudentDrawerComponent = ({onClose, visible, classes}) => {
   const dispatch = useDispatch();
-  let firstName, lastName, patronymic, photoUrl, email, selectedClass;
+
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [patronymic, setPatronymic] = useState('');
+  const [photoUrl, setPhotoUrl] = useState('');
+  const [email, setEmail] = useState('');
+  const [selectedClass, setSelectedClass] = useState('');
 
   const onFirstNameChange = (e) => {
-    firstName = e.target.value;
+    setFirstName(e.target.value);
   }
 
   const onLastNameChange = (e) => {
-    lastName = e.target.value;
+    setLastName(e.target.value);
   }
 
   const onPatronymicChange = (e) => {
-    patronymic = e.target.value;
+    setPatronymic(e.target.value);
   }
 
   const onPhotoChange = (e) => {
-    photoUrl = e.target.value;
+    setPhotoUrl(e.target.value);
   }
 
   const onEmailChange = (e) => {
-    email = e.target.value;
+    setEmail(e.target.value);
   }
 
   const onClassChange = (c) => {
-    selectedClass = c;
+    setSelectedClass(c);
   }
 
   const create = () => dispatch(addStudentToClass({
@@ -57,7 +63,7 @@ const NewStudentDrawerComponent = ({onClose, visible, classes}) => {
             textAlign: 'right',
           }}
         >
-          <Button onClick={create} type="primary" style={{ marginRight: 8 }}>
+          <Button onClick={create} type="primary" style={{marginRight: 8}}>
             Add
           </Button>
           <Button onClick={onClose}>

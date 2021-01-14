@@ -19,10 +19,12 @@ router.post('/new', auth, async (req, res) => {
     const { name } = req.body.class;
     const students = [];
 
-    res.status(201).send(new Class({
+    new Class({
       name,
       students,
-    }).save());
+    }).save().then((s) => {
+      res.status(201).send(s);
+    });
   } catch (error) {
     res.status(400).send(error);
   }
@@ -34,10 +36,11 @@ router.post('/student/new', auth, async (req, res) => {
     await Class.findById(classId)
       .then((c) => {
         c.students.push(student);
-        c.save();
+        c.save()
+          .then((s) => {
+            res.status(201).send(s);
+          });
       });
-
-    res.status(201).send();
   } catch (error) {
     res.status(400).send(error);
   }

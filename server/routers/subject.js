@@ -40,9 +40,9 @@ router.patch('/update/:id', auth, async (req, res) => {
   }
 });
 
-router.delete('/remove', auth, async (req, res) => {
+router.delete('/remove/:id', auth, async (req, res) => {
   try {
-    const { id } = req.body;
+    const { id } = req.params;
 
     await Subject.findByIdAndRemove(id);
 

@@ -3,6 +3,7 @@ import {notify} from '../../utils/notification';
 
 const setSubjects = (payload) => ({type: 'SET_SUBJECTS', payload});
 const setUpdatedSubject = (payload) => ({type: 'SET_UPDATED_SUBJECT', payload});
+const setRemovedSubject = (payload) => ({type: 'SET_REMOVED_SUBJECT', payload});
 
 export const getSubjects = () => dispatch => {
   axios.get(`http://localhost:3100/subjects/all`)
@@ -44,18 +45,15 @@ export const updateSubject = (id, name, description) => dispatch => {
     });
 };
 
-export const removeSubject = (subject) => dispatch => {
-  axios.delete(`http://localhost:3100/subjects/remove`, {
+export const removeSubject = (id) => dispatch => {
+  axios.delete(`http://localhost:3100/subjects/remove/${id}`, {
     headers: {
       'Authorization': localStorage.getItem('token'),
     },
-    data: {
-      id: subject._id
-    }
   })
     .then(() => {
       notify('success', 'Success', 'The subject was successfully removed!');
-      // dispatch();
+      dispatch(setRemovedSubject(id));
     })
     .catch(() => {
       notify('error', 'Error', 'Sorry, something went wrong and subject was not removed. Please, try one more time later.');

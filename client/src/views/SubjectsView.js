@@ -47,7 +47,7 @@ function SubjectsView(props) {
   }
 
   const removeClick = (subject) => {
-    dispatch(removeSubject(subject));
+    dispatch(removeSubject(subject._id));
   }
 
   const handleModalOk = () => {

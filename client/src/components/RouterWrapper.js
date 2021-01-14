@@ -26,10 +26,10 @@ function RouterWrapper(props) {
       <Switch>
         <Route exact path='/login' render={(props) => (<LoginView {...props} isAuth={isAuthenticated}/>)}/>
         <Route path='/news' render={(props) => (<PublicationsView {...props} isAuth={isAuthenticated}/>)}/>
-        <GuardedRoute path='/classes' component={ClassesView} auth={isAuthenticated}/>
+        <GuardedRoute path='/classes' component={ClassesView} isAuth={isAuthenticated}/>
         <Route path='/subjects' render={(props) => (<SubjectsView {...props} isAuth={isAuthenticated}/>)}/>
         <Route path='/teachers' render={(props) => (<TeachersView {...props} isAuth={isAuthenticated}/>)}/>
-        <GuardedRoute path='/profile' component={ProfileView} auth={isAuthenticated}/>
+        <GuardedRoute path='/profile' component={ProfileView} isAuth={isAuthenticated}/>
       </Switch>
     </Router>
   );

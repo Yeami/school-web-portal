@@ -3,8 +3,9 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import ProfileFormComponent from '../components/profile/ProfileFormComponent';
 import ProfileGeneralInfoComponent from '../components/profile/ProfileGeneralInfoComponent';
+import UpdateProfileAvatarModalComponent from '../components/profile/UpdateProfileAvatarModalComponent';
 
-import {logOutUser, logOutUserAllDevices, updateUserInfo} from '../store/actions/userActions';
+import {logOutUser, logOutUserAllDevices, updateAvatar, updateUserInfo} from '../store/actions/userActions';
 
 const pageWrapper = {
   display: 'flex',
@@ -50,6 +51,7 @@ function ProfileView() {
       value: user.email,
     },
   ]);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const logOut = () => {
     dispatch(logOutUser());
@@ -62,19 +64,37 @@ function ProfileView() {
   const updateInfo = (user) => {
     dispatch(updateUserInfo(user));
   };
-  // TODO Photo uploading
+
+  let avatarUrl;
+  const onClassNameChange = (e) => {
+    avatarUrl = e.target.value;
+  };
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleModalOk = () => {
+    setIsModalVisible(false);
+    dispatch(updateAvatar(avatarUrl));
+  };
+
+  const handleModalCancel = () => {
+    setIsModalVisible(false);
+  };
+
   return (
     <div style={pageWrapper}>
       <div style={cardWrapper}>
         <h1>Profile page</h1>
 
         <div style={row}>
-
           <div style={column}>
             <ProfileGeneralInfoComponent
               user={user}
               logOut={logOut}
               logOutAll={logOutAll}
+              showModal={showModal}
             />
           </div>
 
@@ -87,10 +107,16 @@ function ProfileView() {
               onUpdate={updateInfo}
             />
           </div>
-
         </div>
-
       </div>
+
+      <UpdateProfileAvatarModalComponent
+        isVisible={isModalVisible}
+        handleOk={handleModalOk}
+        handleCancel={handleModalCancel}
+        onChange={onClassNameChange}
+      />
+
     </div>
   );
 }

@@ -11,7 +11,7 @@ const wrapper = {
   alignItems: 'center',
 };
 
-function ProfileGeneralInfoComponent({user, logOut, logOutAll}) {
+function ProfileGeneralInfoComponent({user, logOut, logOutAll, showModal}) {
   const birthDate = moment(user.birthDate).format('Do MMMM YYYY');
   const dateJoined = moment(user.dateJoined).format('Do MMMM YYYY');
 
@@ -24,6 +24,7 @@ function ProfileGeneralInfoComponent({user, logOut, logOutAll}) {
           type="dashed"
           style={{margin: '1rem 0'}}
           icon={<PlusOutlined/>}
+          onClick={showModal}
         >
           Upload photo
         </Button>

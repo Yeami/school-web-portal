@@ -10,9 +10,9 @@ const teacherReducer = (state = defaultState, action) => {
         teachers: action.payload,
       };
     case 'PUSH_NEW_TEACHER':
-      state.teachers.push(action.payload)
       return {
         ...state,
+        teachers: [...state.teachers, action.payload]
       };
     default:
       return state;

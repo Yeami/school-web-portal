@@ -1,6 +1,5 @@
 import React from 'react';
 import {Avatar, List} from 'antd';
-import {CloseOutlined} from '@ant-design/icons';
 
 const StudentItemComponent = ({students}) => {
   return (
@@ -9,7 +8,7 @@ const StudentItemComponent = ({students}) => {
       dataSource={students}
       renderItem={(student, i) => (
         <List.Item actions={[
-          <a><CloseOutlined/></a>
+          // <a><CloseOutlined/></a>
         ]}>
           <List.Item.Meta
             avatar={<Avatar src={student.photoUrl}/>}

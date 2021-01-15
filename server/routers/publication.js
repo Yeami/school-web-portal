@@ -22,12 +22,16 @@ router.post('/new', auth, async (req, res) => {
     const author = req.user._id;
     const { title, content, imageUrl } = req.body.publication;
 
-    res.status(201).send(new Publication({
+    new Publication({
       title,
       content,
       imageUrl,
       author,
-    }).save());
+    })
+      .save()
+      .then((p) => {
+        res.status(201).send(p);
+      });
   } catch (error) {
     res.status(400).send(error);
   }

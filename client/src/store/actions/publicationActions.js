@@ -1,29 +1,27 @@
 import axios from 'axios';
-import {notify} from '../../utils/notification';
+import {
+  createPublicationErrorNotify,
+  createPublicationSuccessNotify,
+  getPublicationsErrorNotify
+} from '../notifications/publicationNotifications';
+import {getAuthRequestHeaders} from '../../utils/utils';
 
 const setPublications = (payload) => ({type: 'SET_PUBLICATIONS', payload});
+const addNewPublication = (payload) => ({type: 'PUSH_NEW_PUBLICATION', payload});
 
 export const getPublications = () => dispatch => {
   axios.get(`http://localhost:3100/publications/all`)
     .then(res => {
       dispatch(setPublications(res.data));
     })
-    .catch(() => {
-      notify('error', 'Error', 'Sorry, something went wrong and we can`t load the list of all publications. Please, try one more time later.');
-    });
+    .catch(() => getPublicationsErrorNotify());
 };
 
 export const createPublication = (publication) => dispatch => {
-  axios.post(`http://localhost:3100/publications/new`, {publication}, {
-    headers: {
-      'Authorization': localStorage.getItem('token'),
-    }
-  })
+  axios.post(`http://localhost:3100/publications/new`, {publication}, getAuthRequestHeaders())
     .then(res => {
-      notify('success', 'Success', 'The new publication was successfully created!');
-      // dispatch();
+      createPublicationSuccessNotify();
+      dispatch(addNewPublication(res.data));
     })
-    .catch(() => {
-      notify('error', 'Error', 'Sorry, something went wrong and new publication was not created. Please, try one more time later.');
-    });
+    .catch(() => createPublicationErrorNotify());
 };

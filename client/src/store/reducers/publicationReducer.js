@@ -9,6 +9,11 @@ const publicationReducer = (state = defaultState, action) => {
         ...state,
         publications: action.payload,
       };
+    case 'PUSH_NEW_PUBLICATION':
+      return {
+        ...state,
+        publications: [...state.publications, action.payload]
+      };
     default:
       return state;
   }
